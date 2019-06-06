@@ -144,10 +144,7 @@ export default function AlluDyn() {
 
   function computeNodeValues({nodes}) {
     for (const node of nodes) {
-      node.value = Math.max(
-        sum(node.sourceLinks, value),
-        sum(node.targetLinks, value)
-      );
+      node.value = node.size;
     }
   }
 
@@ -204,6 +201,9 @@ export default function AlluDyn() {
     }
     return columns;
   }
+
+
+  // FIXME - link width
 
   function initializeNodeBreadths(columns) {
     const ky = min(columns, c => (y1 - y0 - (c.length - 1) * py) / sum(c, value));
