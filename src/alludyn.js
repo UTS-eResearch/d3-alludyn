@@ -1,3 +1,5 @@
+
+
 import {max, min, sum} from "d3-array";
 import {justify} from "./align.js";
 import constant from "./constant.js";
@@ -51,7 +53,7 @@ function computeLinkBreadths({nodes}) {
   }
 }
 
-export default function Sankey() {
+export default function AlluDyn() {
   let x0 = 0, y0 = 0, x1 = 1, y1 = 1; // extent
   let dx = 24; // nodeWidth
   let py = 8; // nodePadding
@@ -63,7 +65,7 @@ export default function Sankey() {
   let links = defaultLinks;
   let iterations = 6;
 
-  function sankey() {
+  function alludyn() {
     const graph = {nodes: nodes.apply(null, arguments), links: links.apply(null, arguments)};
     computeNodeLinks(graph);
     computeNodeValues(graph);
@@ -74,53 +76,53 @@ export default function Sankey() {
     return graph;
   }
 
-  sankey.update = function(graph) {
+  alludyn.update = function(graph) {
     computeLinkBreadths(graph);
     return graph;
   };
 
-  sankey.nodeId = function(_) {
-    return arguments.length ? (id = typeof _ === "function" ? _ : constant(_), sankey) : id;
+  alludyn.nodeId = function(_) {
+    return arguments.length ? (id = typeof _ === "function" ? _ : constant(_), alludyn) : id;
   };
 
-  sankey.nodeAlign = function(_) {
-    return arguments.length ? (align = typeof _ === "function" ? _ : constant(_), sankey) : align;
+  alludyn.nodeAlign = function(_) {
+    return arguments.length ? (align = typeof _ === "function" ? _ : constant(_), alludyn) : align;
   };
 
-  sankey.nodeSort = function(_) {
-    return arguments.length ? (sort = _, sankey) : sort;
+  alludyn.nodeSort = function(_) {
+    return arguments.length ? (sort = _, alludyn) : sort;
   };
 
-  sankey.nodeWidth = function(_) {
-    return arguments.length ? (dx = +_, sankey) : dx;
+  alludyn.nodeWidth = function(_) {
+    return arguments.length ? (dx = +_, alludyn) : dx;
   };
 
-  sankey.nodePadding = function(_) {
-    return arguments.length ? (py = +_, sankey) : py;
+  alludyn.nodePadding = function(_) {
+    return arguments.length ? (py = +_, alludyn) : py;
   };
 
-  sankey.nodes = function(_) {
-    return arguments.length ? (nodes = typeof _ === "function" ? _ : constant(_), sankey) : nodes;
+  alludyn.nodes = function(_) {
+    return arguments.length ? (nodes = typeof _ === "function" ? _ : constant(_), alludyn) : nodes;
   };
 
-  sankey.links = function(_) {
-    return arguments.length ? (links = typeof _ === "function" ? _ : constant(_), sankey) : links;
+  alludyn.links = function(_) {
+    return arguments.length ? (links = typeof _ === "function" ? _ : constant(_), alludyn) : links;
   };
 
-  sankey.linkSort = function(_) {
-    return arguments.length ? (linkSort = _, sankey) : linkSort;
+  alludyn.linkSort = function(_) {
+    return arguments.length ? (linkSort = _, alludyn) : linkSort;
   };
 
-  sankey.size = function(_) {
-    return arguments.length ? (x0 = y0 = 0, x1 = +_[0], y1 = +_[1], sankey) : [x1 - x0, y1 - y0];
+  alludyn.size = function(_) {
+    return arguments.length ? (x0 = y0 = 0, x1 = +_[0], y1 = +_[1], alludyn) : [x1 - x0, y1 - y0];
   };
 
-  sankey.extent = function(_) {
-    return arguments.length ? (x0 = +_[0][0], x1 = +_[1][0], y0 = +_[0][1], y1 = +_[1][1], sankey) : [[x0, y0], [x1, y1]];
+  alludyn.extent = function(_) {
+    return arguments.length ? (x0 = +_[0][0], x1 = +_[1][0], y0 = +_[0][1], y1 = +_[1][1], alludyn) : [[x0, y0], [x1, y1]];
   };
 
-  sankey.iterations = function(_) {
-    return arguments.length ? (iterations = +_, sankey) : iterations;
+  alludyn.iterations = function(_) {
+    return arguments.length ? (iterations = +_, alludyn) : iterations;
   };
 
   function computeNodeLinks({nodes, links}) {
@@ -359,5 +361,5 @@ export default function Sankey() {
     return y;
   }
 
-  return sankey;
+  return alludyn;
 }

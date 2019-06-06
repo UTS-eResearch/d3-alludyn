@@ -1,3 +1,3 @@
-export {default as sankey} from "./sankey.js";
-export {center as sankeyCenter, left as sankeyLeft, right as sankeyRight, justify as sankeyJustify} from "./align.js";
-export {default as sankeyLinkHorizontal} from "./sankeyLinkHorizontal.js";
+export {default as alludyn} from "./alludyn.js";
+export {center as alludynCenter, left as alludynLeft, right as alludynRight, justify as alludynJustify} from "./align.js";
+export {default as variableWidthLink} from "./variableWidthLink.js";
