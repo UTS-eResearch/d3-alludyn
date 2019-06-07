@@ -30,7 +30,7 @@ const data = {
 		{ source: 0, target: 2, value: 100 },
      	{ source: 1, target: 2, value: 100 },
      	{ source: 2, target: 3, value: 75 },
-     	{ source: 2, target: 4, value : 125 }
+     	{ source: 2, target: 4, value: 125 }
 	]
 	
 };
@@ -84,15 +84,13 @@ const svg = d3.select('#chart')
     .join("g")
     .style("mix-blend-mode", "multiply");
 
-  svg.append("g")
-    .attr("fill", "none")
-    .attr("stroke", "#9cc")
-    .attr("stroke-opacity", 0.2)
-  .selectAll("path")
-  .data(links)
-  .join("path")
-    .attr("d", d3.sankeyLinkHorizontal())
-    .attr("stroke-width", function(d) { return d.width; });
+  link.append("path")
+    .attr("d", d3.variableWidthLink())
+    .attr("fill", "#9cc")
+    .attr("opacity", .2)
+    .append("title")
+    .text(d => `${d.value}`);
+
 
   svg.append("g")
       .style("font", "10px sans-serif")
