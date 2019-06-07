@@ -31,8 +31,8 @@ export default function () {
     const t = d.target;
     // note: s.x1 is the right side of the source
     // t.x0 is the left side of the target
-    const sy = linkHeights(d, (d) => d.svalue, d.source, d.source.sourceLinks);
-    const ty = linkHeights(d, (d) => d.tvalue, d.target, d.target.targetLinks);
+    const sy = linkHeights(d, (d) => d.swidth, d.source, d.source.sourceLinks);
+    const ty = linkHeights(d, (d) => d.twidth, d.target, d.target.targetLinks);
     const xm = (s.x1 + t.x0) / 2;
     const p = path();
     p.moveTo(s.x1, sy[0]);

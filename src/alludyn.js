@@ -153,8 +153,8 @@ export default function AlluDyn() {
   function computeNodeValues({nodes}) {
     for (const node of nodes) {
       node.value = Math.max(
-        sum(node.sourceLinks, tvalue),
-        sum(node.targetLinks, svalue)
+        sum(node.sourceLinks, svalue),
+        sum(node.targetLinks, tvalue)
       );
      }
   }

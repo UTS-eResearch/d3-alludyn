@@ -3,7 +3,6 @@
 <head>
 <title>alludyn testbed</title>
 <script src="https://unpkg.com/d3@5"></script>
-<script src="https://unpkg.com/d3-sankey"></script>
 <script src="../dist/d3-alludyn.js"></script>
 </head>
 <body>
@@ -18,23 +17,41 @@
 const width = 800;
 const height = 600;
 
+// const data = {
+// 	nodes: [
+// 		{name: 'a'},
+// 		{name: 'b' },
+// 		{name: 'c' },
+// 		{name: 'd' },
+// 		{name: 'e' } 
+// 	],
+// 	links: [
+// 		{ source: 0, target: 2, svalue: 80, tvalue: 100 },
+//      	{ source: 1, target: 2, svalue: 100, tvalue: 100 },
+//      	{ source: 2, target: 3, svalue: 75, tvalue: 75 },
+//      	{ source: 2, target: 4, svalue: 125, tvalue: 125 }
+// 	]
+	
+// };
+
 const data = {
 	nodes: [
-		{name: 'a'},
+		{name: 'a' },
 		{name: 'b' },
 		{name: 'c' },
 		{name: 'd' },
-		{name: 'e' } 
+		{name: 'e' }, 
+		{name: 'b2'}
 	],
 	links: [
-		{ source: 0, target: 2, svalue: 100, tvalue: 100 },
-     	{ source: 1, target: 2, svalue: 100, tvalue: 100 },
-     	{ source: 2, target: 3, svalue: 75, tvalue: 75 },
-     	{ source: 2, target: 4, svalue: 125, tvalue: 125 }
-	]
+		{ source: 0, target: 1, svalue: 50, tvalue: 100 },
+		{ source: 1, target: 2, svalue: 100, tvalue: 150 },
+		{ source: 2, target: 4, svalue: 150, tvalue: 150 },
+		{ source: 3, target: 4, svalue: 10, tvalue: 100},
+		{ source: 5, target: 3, svalue: 90, tvalue: 10 }
+ 	]
 	
 };
-
 
 
 
@@ -76,7 +93,7 @@ const svg = d3.select('#chart')
       .attr("fill", "#9cc")
       .attr("opacity", .5)
      .append("title")
-     .text(d => `${d.id} ${d.size} ${d.value}`);
+     .text(d => `${d.name} ${d.value}`);
 
   const link = svg.append("g")
     .selectAll("g")
@@ -89,7 +106,7 @@ const svg = d3.select('#chart')
     .attr("fill", "#9cc")
     .attr("opacity", .2)
     .append("title")
-    .text(d => `${d.value}`);
+    .text(d => `${d.svalue} - ${d.tvalue}`);
 
 
   svg.append("g")
