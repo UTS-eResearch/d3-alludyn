@@ -144,8 +144,11 @@ export default function AlluDyn() {
 
   function computeNodeValues({nodes}) {
     for (const node of nodes) {
-      node.value = node.size;
-    }
+      node.value = Math.max(
+        sum(node.sourceLinks, value),
+        sum(node.targetLinks, value)
+      );
+     }
   }
 
   function computeNodeDepths({nodes}) {
