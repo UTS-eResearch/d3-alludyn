@@ -1,6 +1,6 @@
 {
   "name": "d3-alludyn",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Modification of d3-sankey to allow dynamic links.",
   "keywords": [
     "d3",
