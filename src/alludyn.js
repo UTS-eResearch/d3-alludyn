@@ -20,6 +20,14 @@ function value(d) {
   return d.value;
 }
 
+function svalue(d) {
+  return d.svalue;
+}
+
+function tvalue(d) {
+  return d.tvalue;
+}
+
 function defaultId(d) {
   return d.index;
 }
@@ -43,12 +51,12 @@ function computeLinkBreadths({nodes}) {
     let y0 = node.y0;
     let y1 = y0;
     for (const link of node.sourceLinks) {
-      link.y0 = y0 + link.width / 2;
-      y0 += link.width;
+      link.y0 = y0 + link.swidth / 2;
+      y0 += link.swidth;
     }
     for (const link of node.targetLinks) {
-      link.y1 = y1 + link.width / 2;
-      y1 += link.width;
+      link.y1 = y1 + link.twidth / 2;
+      y1 += link.twidth;
     }
   }
 }
@@ -145,8 +153,8 @@ export default function AlluDyn() {
   function computeNodeValues({nodes}) {
     for (const node of nodes) {
       node.value = Math.max(
-        sum(node.sourceLinks, value),
-        sum(node.targetLinks, value)
+        sum(node.sourceLinks, tvalue),
+        sum(node.targetLinks, svalue)
       );
      }
   }
@@ -206,7 +214,6 @@ export default function AlluDyn() {
   }
 
 
-  // FIXME - link width
 
   function initializeNodeBreadths(columns) {
     const ky = min(columns, c => (y1 - y0 - (c.length - 1) * py) / sum(c, value));
@@ -217,7 +224,8 @@ export default function AlluDyn() {
         node.y1 = y + node.value * ky;
         y = node.y1 + py;
         for (const link of node.sourceLinks) {
-          link.width = link.value * ky;
+          link.swidth = link.svalue * ky;
+          link.twidth = link.tvalue * ky;
         }
       }
       y = (y1 - y + py) / (nodes.length + 1);
@@ -248,8 +256,8 @@ export default function AlluDyn() {
       for (const target of column) {
         let y = 0;
         let w = 0;
-        for (const {source, value} of target.targetLinks) {
-          let v = value * (target.layer - source.layer);
+        for (const {source, tvalue} of target.targetLinks) {
+          let v = tvalue * (target.layer - source.layer);
           y += targetTop(source, target) * v;
           w += v;
         }
@@ -271,8 +279,8 @@ export default function AlluDyn() {
       for (const source of column) {
         let y = 0;
         let w = 0;
-        for (const {target, value} of source.sourceLinks) {
-          let v = value * (target.layer - source.layer);
+        for (const {target, svalue} of source.sourceLinks) {
+          let v = svalue * (target.layer - source.layer);
           y += sourceTop(source, target) * v;
           w += v;
         }
@@ -339,13 +347,13 @@ export default function AlluDyn() {
   // Returns the target.y0 that would produce an ideal link from source to target.
   function targetTop(source, target) {
     let y = source.y0 - (source.sourceLinks.length - 1) * py / 2;
-    for (const {target: node, width} of source.sourceLinks) {
+    for (const {target: node, swidth} of source.sourceLinks) {
       if (node === target) break;
-      y += width + py;
+      y += swidth + py;
     }
-    for (const {source: node, width} of target.targetLinks) {
+    for (const {source: node, twidth} of target.targetLinks) {
       if (node === source) break;
-      y -= width;
+      y -= twidth;
     }
     return y;
   }
@@ -353,13 +361,13 @@ export default function AlluDyn() {
   // Returns the source.y0 that would produce an ideal link from source to target.
   function sourceTop(source, target) {
     let y = target.y0 - (target.targetLinks.length - 1) * py / 2;
-    for (const {source: node, width} of target.targetLinks) {
+    for (const {source: node, twidth} of target.targetLinks) {
       if (node === source) break;
-      y += width + py;
+      y += twidth + py;
     }
-    for (const {target: node, width} of source.sourceLinks) {
+    for (const {target: node, twidth} of source.sourceLinks) {
       if (node === target) break;
-      y -= width;
+      y -= twidth;
     }
     return y;
   }
